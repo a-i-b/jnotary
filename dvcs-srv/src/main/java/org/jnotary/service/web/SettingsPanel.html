@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<wicket:panel>
+<p>
+<form wicket:id="configForm">
+ <table width="100%">
+  <tr>
+   <td>Path</td>
+   <td><input type="text" wicket:id="keyStorePath"/></td>
+  </tr>
+  <tr>
+   <td>Type</td>
+   <td><span wicket:id="keyStoreType" /></td>
+  </tr>
+  <tr>
+   <td>Password</td>
+   <td><input type="text" wicket:id="keyStorePassword"/></td>
+  </tr>
+  <tr>
+   <td>Alias name</td>
+   <td><input type="text" wicket:id="keyAlias"/></td>
+  </tr>
+  <tr>
+   <td>Alias password</td>
+   <td><input type="text" wicket:id="keyAliasPassword"/></td>
+  </tr>
+  <tr>
+   <td>Signature algorithm</td>
+   <td><select wicket:id="signalg"></select></td>
+  </tr>
+  <tr>
+   <td>Hash algorithm</td>
+   <td><select wicket:id="hashalg"></select></td>
+  </tr>
+  <tr>
+   <td>Verify client's certificate by CRL</td>
+   <td><input type="checkbox" wicket:id="verifycrl"/></td>
+  </tr>
+  <tr>
+   <td>Add server's certificate to signature</td>
+   <td><input type="checkbox" wicket:id="addsigncert"/></td>
+  </tr>
+  <tr>
+   <td colspan="2"><input type="submit" value="Save" class="button"></td>
+  </tr>
+ </table>
+</form>
+</p>
+</wicket:panel>
+</html>

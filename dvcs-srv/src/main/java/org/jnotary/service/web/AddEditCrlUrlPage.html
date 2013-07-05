@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+        xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+    <wicket:head>
+        <title>Add CRL URL</title>
+    </wicket:head>
+</head>
+<body>
+	<h3>
+	    <wicket:message key="addUrl"/>
+	</h3>
+    <br/>	
+	<form action="" wicket:id="addUrlForm">
+		<table width="100%" cellspacing="0">
+			<tr>
+				<td align="left" width="20%">
+			        <label for="issuerDescription" wicket:id="issuerDescriptionLabel">Location name X</label>
+				</td>
+		        <td align="left" width="80%">
+			        <select wicket:id="issuerDescription" style="width: 100%;"></select>
+		        </td>
+	        </tr>
+			<tr>
+				<td align="left" width="20%">
+	    		    <label for="crlUrl" wicket:id="nameLabel">Location name X</label>
+				</td>
+		        <td align="left" width="80%">
+			        <input type="text" id="crlUrl" wicket:id="crlUrl" style="width: 100%;"/>
+		        </td>
+	        </tr>
+			<tr>
+		        <td colspan="2" align="left" width="100%">
+			        <input type="submit" wicket:message="value:save" class="formbutton" name="save" wicket:id="submitButton"/>
+			        <input type="submit" wicket:message="value:cancel" class="formbutton" name="cancel" wicket:id="cancelButton"/>
+		        </td>
+	        </tr>
+		</table>
+	</form>         
+</body>
+</html>

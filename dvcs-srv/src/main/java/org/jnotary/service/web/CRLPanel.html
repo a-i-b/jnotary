@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<wicket:panel>
+<br/>
+<div wicket:id="modalAdd"></div>
+<div class="addlink">
+        <a href="#" wicket:id="addUrlLink"><wicket:message key="addUrlLink"/></a>
+</div>
+<div wicket:id="listWmc">
+	<table width="100%" cellspacing="0" class="dataview">
+	    <tr>
+	        <th align="center">Issuer description</th><th align="center">CRL URL</th><th align="center">Actions</th> <!-- new header column -->
+	    </tr>
+	    <tr wicket:id="repeating">
+	        <td align="left" width="50%"><span wicket:id="issuerDescription"></span></td>
+	        <td align="left" width="50%"><span wicket:id="crlUrl"></span></td>
+	        <td align="left">
+	        	<div wicket:id="modalEdit"></div>
+	        	<a href="#" wicket:id="editUrlLink"><wicket:message key="editUrlLink"/></a>&nbsp;<a href wicket:id="removeUrlLink"><wicket:message key="removeUrlLink"/></a>
+	        </td>
+	    </tr>
+	</table>
+</div>
+
+</wicket:panel>
+</html>

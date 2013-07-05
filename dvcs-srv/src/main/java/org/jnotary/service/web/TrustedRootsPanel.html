@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<wicket:panel>
+<p>
+<form wicket:id="configForm">
+ <table width="100%">
+  <tr>
+   <td>Path</td>
+   <td><input type="text" wicket:id="trustedRootStorePath"/></td>
+  </tr>
+  <tr>
+   <td>Type</td>
+   <td><span wicket:id="trustedRootStoreType" /></td>
+  </tr>
+  <tr>
+   <td>Password</td>
+   <td><input type="text" wicket:id="trustedRootStorePassword"/></td>
+  </tr>
+  <tr>
+   <td colspan="2"><input type="submit" value="Save" class="button" wicket:id="submitButton"></td>
+  </tr>
+ </table>
+</form>
+</p>
+<div wicket:id="listWmc">
+	<table cellspacing="0" class="dataview">
+	    <tr>
+	        <th>DN</th>
+	        <th>Serial number</th>
+	        <th>Date from</th>
+	        <th>Date to</th>
+	    </tr>
+	    <tr wicket:id="repeating">
+	        <td><span wicket:id="dn">[dn]</span></td>
+	        <td><span wicket:id="serial">[serial]</span> </td>
+	        <td><span wicket:id="datefrom">[datefrom]</span></td>
+	        <td><span wicket:id="dateto">[dateto]</span></td>
+	    </tr>
+	</table>
+</div>
+</wicket:panel>
+</html>

@@ -1,0 +1,77 @@
+.addlink {
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: bold;
+  padding: 2px 2px 10px 2px;	
+  text-decoration: none;
+  color: #666;  
+}
+
+div.tabpanel div.tab-row{
+  float:left;
+  width:100%;
+  background:#c1e4ff url("tabs/bg.gif") repeat-x bottom;
+  line-height:normal;
+  border-bottom: 1px solid #0079d6; 
+  border-top: 1px solid #0079d6;
+}
+
+div.tabpanel div.tab-row ul {
+  margin:0;
+  padding:10px 10px 0;
+  list-style:none;
+  }
+  
+div.tabpanel div.tab-row li {
+  float:left;
+  background:url("tabs/left.gif") no-repeat left top;
+  margin:0;
+  padding:0 0 0 9px;
+  }
+  
+div.tabpanel div.tab-row a {
+  display:block;
+  background:url("tabs/right.gif") no-repeat right top;
+  padding:5px 15px 4px 6px;
+  text-decoration:none;
+  font-weight:bold;
+  white-space:nowrap;
+  color:#A2A89A;
+  }
+  
+div.tab-panel {
+	clear: left;
+}
+  
+div.tabpanel div.tab-row a:hover {
+  color:#fff;
+  }
+  
+div.tabpanel div.tab-row li.selected {
+  background-image:url("tabs/left_on.gif");
+  }
+  
+div.tabpanel div.tab-row li.selected a {
+  background-image:url("tabs/right_on.gif");
+  color:#333;
+  padding-bottom:5px;
+  }	
+  
+table.dataview caption { text-align: left; }
+table.dataview tr { padding-top: 2px; padding-bottom: 2px; }
+table.dataview tr.even { background-color: #ffebcd; }
+table.dataview tr.odd { background-color: #fff; }
+table.dataview tr td { padding-left: 8px; padding-right: 30px; }
+table.dataview tr th { color: black; padding-top: 3px; padding-bottom: 3px; padding-left: 8px; padding-right: 30px; background-color: #c1e4ff; border-bottom: 1px solid #0079d6; border-top: 1px solid #0079d6; text-align: left; white-space: nowrap; vertical-align: middle;}
+
+table.dataview tr th { background-position: right; background-repeat:no-repeat; }
+table.dataview tr th.wicket_orderDown {
+	background-color: #87cbff; background-image: url(images/arrow_down.png); }
+table.dataview tr th.wicket_orderUp {
+	background-color: #87cbff; background-image: url(images/arrow_up.png); }
+table.dataview tr th.wicket_orderNone {
+	background-image: url(images/arrow_off.png);
+}
+table.dataview tr th a { font-weight: normal; }
+table.dataview #message { padding-left: 3px; }
+table.dataview caption { padding-bottom: 2px; }
