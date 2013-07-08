@@ -53,7 +53,7 @@ mvn clean install -Dmaven.test.skip=true
 14. Run client using the following command line:  
 java -jar dvcs-client-0.0.1-SNAPSHOT.jar options input-file output-file  
 To see the list of options run jar without parameters  
-For the proper work of client properties file must be created with path to the user key store, password for store, alias name and password for alias.  
+So that client work properly, properties file must be created, that contains a path to the user key store, the password for store, the alias name and the password for the alias.  
 (See myKey.properties file in source code)
 
 By problems contact 
