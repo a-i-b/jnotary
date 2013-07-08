@@ -21,7 +21,7 @@ Currently supported features:
 - CRL cashe;
 - ability to set CRL URI for root certificate, if there is no extention with CRL URI;
 - ability to add root certificate for user certificate verification;
-- vpkc service can verifying only one certificate per query.
+- vpkc service can verify only one certificate per query.
 
 
 Not supported featurers, that are have to implemented in future
@@ -35,10 +35,10 @@ Not supported featurers, that are have to implemented in future
 Installing jnotary
 
 1. Install JBoss AS 7.1
-2. Create JBoss "application user" with add-aser script
-User name: admin
-Role: dvcs
-3. Compile project with maven
+2. Create JBoss "application user" with add-user script  
+User name: admin  
+Role: dvcs  
+3. Compile project with maven  
 mvn clean install -Dmaven.test.skip=true
 4. Deploy (copy) dvcs-srv.war from taget directory to JBoss deployments directory
 5. Create user key store (with certicate and private key) in PKCS#12 format und store in directory, that is available for JEE application
