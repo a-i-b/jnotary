@@ -43,11 +43,11 @@ mvn clean install -Dmaven.test.skip=true
 4. Deploy (copy) dvcs-srv.war from taget directory to JBoss deployments directory
 5. Create user key store (with certicate and private key) in PKCS#12 format and save it to the directory, that is available for jnotary application
 6. Create trusted root's store in JKS format and save it to the directory, that is available for JEE application
-7. Add all the nessesary root sertificates to trusted root's store
+7. Add all the nessesary root certificates to the trusted root's store
 8. Start JBoss Server
 9. Open URL <server address>:8080/dvcs-srv/admin
 10. Enter login/password
-11. On tabpanel "Settings" enter path to user key store, and also passwords and etc
+11. Enter on the tabpanel "Settings" the path to the user key store, and also passwords and etc
 12. On tabpanel "Trusted roots" enter path to trusted root's  store, password and etc. You will see complete list of certificates in store
 13. If you user certificates contains no extentions with CRL URL, you can add URL to CRL on tabpanel "Additional CRLs"
 14. Run client with appropriate parameters "java -jar dvcs-client-0.0.1-SNAPSHOT.jar options input-file output-file".
