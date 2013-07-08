@@ -45,10 +45,10 @@ mvn clean install -Dmaven.test.skip=true
 6. Create trusted root store in JKS format and save it to the directory, that is accessible for JEE application
 7. Add all the nessesary root certificates to the trusted root store
 8. Start JBoss Server
-9. Open URL <server address>:8080/dvcs-srv/admin
+9. Open URL http://<server address>:8080/dvcs-srv/admin
 10. Enter login/password
-11. Enter on the tabpanel "Settings" the path to the user key store, and also passwords and etc
-12. On tabpanel "Trusted roots" enter path to trusted root store, password and etc. You will see complete list of certificates in store
+11. Enter the path to the user key store, and also passwords etc on the tabpanel "Settings"
+12. Enter path to trusted root store, password etc on tabpanel "Trusted roots". You will see complete list of certificates in store
 13. If you user certificates contains no extentions with CRL URL, you can add URL to CRL on tabpanel "Additional CRLs"
 14. Run client with appropriate parameters "java -jar dvcs-client-0.0.1-SNAPSHOT.jar options input-file output-file".
 For the proper work of client properties file must be created with path to the user key store, password for store, alias name and password for alias
