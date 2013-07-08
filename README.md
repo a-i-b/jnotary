@@ -41,7 +41,7 @@ Role: dvcs
 3. Compile project with maven  
 mvn clean install -Dmaven.test.skip=true
 4. Deploy (copy) dvcs-srv.war from taget directory to JBoss deployments directory
-5. Create user key store (with certicate and private key) in PKCS#12 format and save it to the accessible accessible for JEE application directory
+5. Create user key store (with certicate and private key) in PKCS#12 format and save it to the accessible for JEE application directory
 6. Create trusted root's store in JKS format and save it to the accessible for JEE application directory
 7. Add all the nessesary root certificates to the trusted root's store
 8. Start JBoss Server
