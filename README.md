@@ -50,8 +50,9 @@ mvn clean install -Dmaven.test.skip=true
 11. Enter the path to the user key store, passwords etc. on the tabpanel "Settings"
 12. Enter the path to the trusted root store, password etc. on the tabpanel "Trusted roots". You will see a complete list of certificates, that the store contains
 13. If your user certificates contain no extentions with CRL URL, you can add the URL to CRL on the tabpanel "Additional CRLs"
-14. Run client with appropriate parameters:  
-java -jar dvcs-client-0.0.1-SNAPSHOT.jar options input-file output-file      
+14. Run client using the following command line:  
+java -jar dvcs-client-0.0.1-SNAPSHOT.jar options input-file output-file  
+To see the list of options run jar without parameters  
 For the proper work of client properties file must be created with path to the user key store, password for store, alias name and password for alias.  
 (See myKey.properties file in source code)
 
