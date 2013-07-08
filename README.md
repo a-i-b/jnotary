@@ -25,7 +25,7 @@ Currently supported features:
 - vpkc service can verifying only one certificate per query.
 
 
-Not supported featurers, that are have to in future implemented
+Not supported featurers, that are have to implemented in future
 - certificate verification with OCSP;
 - Timestamp verification;
 - CADES signature verification;
