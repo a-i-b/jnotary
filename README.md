@@ -24,7 +24,7 @@ Currently supported features:
 - vpkc service can verify only one certificate per query.
 
 
-Not supported featurers, that are have to implemented in future
+Not supported featurers, that need to be implemented in future
 - certificate verification with OCSP;
 - Timestamp verification;
 - CADES signature verification;
@@ -47,11 +47,12 @@ mvn clean install -Dmaven.test.skip=true
 8. Start JBoss Server
 9. Open URL <server address>:8080/dvcs-srv/admin
 10. Enter login/password
-11. On tabpanel "Settins" enter path to user key store, and also passwords and etc
+11. On tabpanel "Settings" enter path to user key store, and also passwords and etc
 12. On tabpanel "Trusted roots" enter path to trusted root's  store, password and etc. You will see complete list of certificates in store
 13. If you user certificates contains no extentions with CRL URL, you can add URL to CRL on tabpanel "Additional CRLs"
-14. Run client with appropriate parameters "java -jar dvcs-client-0.0.1-SNAPSHOT.jar options input-file output-file"
-
+14. Run client with appropriate parameters "java -jar dvcs-client-0.0.1-SNAPSHOT.jar options input-file output-file".
+For the proper work of client properties file must be created with path to the user key store, password for store, alias name and password for alias
+(See myKey.properties file in source code)
 
 By problems contact 
 balaschow.a@gmail.com
