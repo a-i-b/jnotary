@@ -4,7 +4,6 @@ jnotary
 Implementation of Data Validation and Certification Server (RFC 3029)
 
 jnotary is early implementation of DVCS (RFC 3029), built using Java (JEE) technology.
-jnotary is open source software.
 It is implemented as REST service with use of JBoss AS 7.1. Bouncy Castle Crypto API is used for object generation and many other purposes.
 
 Implemented main features:
