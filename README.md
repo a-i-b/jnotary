@@ -34,6 +34,7 @@ Not supported featurers, that are have to in future implemented
 
 
 Installing jnotary
+
 1. Install JBoss AS 7.1.
 2. Create JBoss "application user" with add-aser script
 User name: admin
