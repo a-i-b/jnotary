@@ -35,12 +35,12 @@
 	<dependency>
 	  <groupId>bouncycastle</groupId>
 	  <artifactId>bcpkix-jdk15on</artifactId>
-	  <version>1.48</version>
+	  <version>1.49</version>
     </dependency> 
 	<dependency>
 	  <groupId>bouncycastle</groupId>
 	  <artifactId>bcprov-ext-jdk15on</artifactId>
-	  <version>1.48</version>
+	  <version>1.49</version>
 	</dependency> 
   </dependencies>
 
