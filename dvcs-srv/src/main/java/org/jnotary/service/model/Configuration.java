@@ -33,12 +33,14 @@ public class Configuration implements Serializable {
 	private String hashAlgorithm = "SHA-256";
 	private String signatureAlgorithm = "SHA1withRSA";
 	private String keyStorePath = "";
+	@Transient
 	private String keyStoreType = "PKCS12";
 	private String keyStorePassword = "";
 	private String keyAlias = "";
 	private String keyAliasPassword = "";
 	private String trustedRootStorePath = "";
 	private String trustedRootStorePassword = "";
+	@Transient
 	private String trustedRootStoreType = "JKS";
 	
 	public Integer getId() {

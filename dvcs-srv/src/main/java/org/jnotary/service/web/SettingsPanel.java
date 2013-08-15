@@ -47,7 +47,6 @@ public class SettingsPanel extends Panel {
 	IGlobalResources globalResources;
 	
 	private Form<?> form;
-	private List<String> storeTypes = Arrays.asList("PKCS12", "JKS");
 	private List<String> signatures;
 	private List<String> messageDigests;
 	
@@ -83,14 +82,7 @@ public class SettingsPanel extends Panel {
 			 }
 		};
 	
-		form.add(new TextField<String>("keyStorePath", new PropertyModel(configuration, "keyStorePath")));
-
-		if(configuration.getKeyStoreType() == null || configuration.getKeyStoreType().isEmpty())
-			configuration.setKeyStoreType(storeTypes.get(0));
-		RadioChoice<String> keyStoreType = new RadioChoice<String>("keyStoreType",
-				new PropertyModel<String>(configuration, "keyStoreType"), storeTypes);
-		form.add(keyStoreType);
-          
+		form.add(new TextField<String>("keyStorePath", new PropertyModel(configuration, "keyStorePath")));          
 		form.add(new TextField<String>("keyStorePassword", new PropertyModel(configuration, "keyStorePassword")));
 		form.add(new TextField<String>("keyAlias", new PropertyModel(configuration, "keyAlias")));
 		form.add(new TextField<String>("keyAliasPassword", new PropertyModel(configuration, "keyAliasPassword")));

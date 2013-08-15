@@ -75,14 +75,7 @@ public class TrustedRootsPanel extends Panel {
 		
 		form = new Form<Configuration>("configForm", new PropertyModel<Configuration>(this, "configuration"));
 
-		form.add(new TextField<String>("trustedRootStorePath", new PropertyModel<String>(configuration, "trustedRootStorePath")));
-
-		if(configuration.getKeyStoreType() == null || configuration.getKeyStoreType().isEmpty())
-			configuration.setKeyStoreType(storeTypes.get(0));
-		RadioChoice<String> keyStoreType = new RadioChoice<String>("trustedRootStoreType", 
-				new PropertyModel<String>(configuration, "trustedRootStoreType"), storeTypes);
-		form.add(keyStoreType);
-          
+		form.add(new TextField<String>("trustedRootStorePath", new PropertyModel<String>(configuration, "trustedRootStorePath")));          
 		form.add(new TextField<String>("trustedRootStorePassword", new PropertyModel<String>(configuration, "trustedRootStorePassword")));
 
 		final WebMarkupContainer wmc = new WebMarkupContainer("listWmc");

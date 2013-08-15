@@ -49,6 +49,7 @@
     <module>crypto</module>
     <module>dvcs-srv</module>
     <module>dvcs-client</module>
+    <module>dvcs-check</module>
   </modules>
   
   <repositories>
