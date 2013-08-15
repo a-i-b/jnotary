@@ -21,23 +21,27 @@ import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
 
 public class ClientCryptoConfig {
 	private String keyPath;
-	private String containerType;
+	private String containerType = "PKCS12";
 	private String alias;
 	private String storePassword;
 	private String aliasPassword;
-	private AlgorithmIdentifier hashAlgorithm = new AlgorithmIdentifier(NISTObjectIdentifiers.id_sha256); 
+	private String trustedStorePath;
+	private String trustedStorePassword; 
 	
+	private AlgorithmIdentifier hashAlgorithm = new AlgorithmIdentifier(NISTObjectIdentifiers.id_sha256);
+
 	public void load(String configPath) throws Exception {
 		Properties clientProperties = new Properties();
 		BufferedInputStream stream = null;
 		try {
 			stream = new BufferedInputStream(new FileInputStream(configPath));
 			clientProperties.load(stream);
-			keyPath = clientProperties.getProperty("store-path");
-			containerType = clientProperties.getProperty("store-type");
+			keyPath = clientProperties.getProperty("user-store-path");
 			alias = clientProperties.getProperty("alias");
-			storePassword = clientProperties.getProperty("store-password");
+			storePassword = clientProperties.getProperty("user-store-password");
 			aliasPassword = clientProperties.getProperty("alias-password");
+			trustedStorePath = clientProperties.getProperty("trusted-store-path");
+			trustedStorePassword = clientProperties.getProperty("trusted-store-password");
 		} catch (Exception e) {
 			throw new Exception("Can't read key store properties: " + e.getLocalizedMessage());
 		} finally {
@@ -68,6 +72,14 @@ public class ClientCryptoConfig {
 
 	public AlgorithmIdentifier getHashAlgorithm() {
 		return hashAlgorithm;
+	}
+
+	public String getTrustedStorePath() {
+		return trustedStorePath;
+	}
+
+	public String getTrustedStorePassword() {
+		return trustedStorePassword;
 	}
 }
 
