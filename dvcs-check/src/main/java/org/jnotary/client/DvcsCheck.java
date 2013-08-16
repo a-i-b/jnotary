@@ -16,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
 import java.util.Arrays;
 
 import org.apache.commons.cli.CommandLine;
@@ -29,7 +30,12 @@ import org.apache.commons.io.HexDump;
 import org.apache.commons.io.IOUtils;
 import org.bouncycastle.asn1.cmp.PKIStatusInfo;
 import org.bouncycastle.asn1.x509.DigestInfo;
+import org.bouncycastle.cms.SignerInformation;
+import org.jnotary.crypto.FileStorage;
 import org.jnotary.crypto.Hasher;
+import org.jnotary.crypto.TrustedStore;
+import org.jnotary.crypto.Verifier;
+import org.jnotary.crypto.Verifier.VerifyResult;
 import org.jnotary.crypto.util.CryptoHelper;
 import org.jnotary.crypto.util.ClientCryptoConfig;
 import org.jnotary.dvcs.DVCSRequest;
@@ -38,6 +44,7 @@ import org.jnotary.dvcs.util.DvcsHelper;
 
 
 public class DvcsCheck {
+	private static ClientCryptoConfig config = null;
 	
     public static void main(String[] args) throws IOException {
     	
@@ -64,11 +71,16 @@ public class DvcsCheck {
         }
 
         DVCSRequest reqOut = null;
-        ClientCryptoConfig config = new ClientCryptoConfig();
+        config = new ClientCryptoConfig();
         try {
 			config.load(configPath);
 	        byte[] srcData = loadFile(line.getArgs()[0]);			
 			byte[] dvcsData = loadFile(line.getArgs()[1]);
+			
+			VerifyResult dvcsReqVerifyResult = verifySignature(dvcsData);
+			verifyCerificates(dvcsReqVerifyResult);
+			System.out.println("DVCS file signature  and certificate are successfully verified");			
+
 			DVCSResponse response = DVCSResponse.getInstance(CryptoHelper.removeSignature(dvcsData));			
 			byte[] digestData = Hasher.makeHash(config.getHashAlgorithm().getAlgorithm(), srcData);
 			verifyAndDump(digestData, response);			
@@ -77,7 +89,27 @@ public class DvcsCheck {
 		}
     }
 	
-    private static Option createOption(String shortOptionName, String optionName, String description, boolean hasValue, boolean isMandatory )
+    private static void verifyCerificates(VerifyResult dvcsReqVerifyResult) throws Exception {
+		TrustedStore trustedRoots = new TrustedStore(
+				new FileStorage(
+						config.getTrustedStorePath(),
+						"JKS",
+						config.getTrustedStorePassword()));
+
+    	Verifier verifier = new Verifier();		
+		for(SignerInformation signerInfo: dvcsReqVerifyResult.getSigners()) {
+			X509Certificate cert = dvcsReqVerifyResult.getSignerCertificate(signerInfo.getSID());
+			verifier.verifyCertificate(trustedRoots, cert);
+		}
+
+	}
+
+	private static VerifyResult verifySignature(byte[] dvcsData) throws Exception {
+    	Verifier verifier = new Verifier();		
+		return verifier.verifySignature(dvcsData, null);
+	}
+
+	private static Option createOption(String shortOptionName, String optionName, String description, boolean hasValue, boolean isMandatory )
 	{
 		OptionBuilder opt = OptionBuilder.withLongOpt(optionName)
 			.withArgName(shortOptionName)

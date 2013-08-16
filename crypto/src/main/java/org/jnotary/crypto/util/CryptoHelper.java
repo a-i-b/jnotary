@@ -58,6 +58,7 @@ public class CryptoHelper {
 		
 		     while (it.hasNext()) {
 		    	 String entry = (String) it.next();
+		    	 System.out.println(entry);
 		    	 if (entry.startsWith("Signature.")) {
 		             signatures.add(entry.substring("Signature.".length()));
 		    	 } 
