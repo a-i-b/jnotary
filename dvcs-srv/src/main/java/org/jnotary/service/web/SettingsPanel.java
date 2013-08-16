@@ -99,6 +99,11 @@ public class SettingsPanel extends Panel {
 		form.add(new CheckBox("verifycrl", new PropertyModel(configuration, "verifyCRL")));
 		form.add(new CheckBox("addsigncert", new PropertyModel(configuration, "addSertificateToSignature")));
 	
+		form.add(new CheckBox("CpdAllowed", new PropertyModel(configuration, "CpdAllowed")));
+		form.add(new CheckBox("CcpdAllowed", new PropertyModel(configuration, "CcpdAllowed")));
+		form.add(new CheckBox("VsdAllowed", new PropertyModel(configuration, "VsdAllowed")));
+		form.add(new CheckBox("VpkcAllowed", new PropertyModel(configuration, "VpkcAllowed")));
+
 		add(form);		
 		
 		super.onInitialize();

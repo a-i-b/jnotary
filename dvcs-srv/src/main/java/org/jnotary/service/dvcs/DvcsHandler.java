@@ -44,6 +44,12 @@ public class DvcsHandler implements IDvcsHandler {
 	
 	@Override
 	public DVCSResponse handle(DVCSRequest request) throws DVCSException {
+		if(!globalResources.getServiceConfig().asAllowed(request.getRequestInformation().getService())) {
+			throw new DVCSException(PKIStatus.REJECTION,
+					"Service is disabled",
+					PKIFailureInfo.systemUnavail);
+		}
+		
 		switch(request.getRequestInformation().getService()) {
 		case ServiceType.CPD:
 			return handleCpd(request);

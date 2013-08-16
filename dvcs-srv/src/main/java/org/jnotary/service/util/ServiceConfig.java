@@ -12,6 +12,8 @@ package org.jnotary.service.util;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
@@ -24,12 +26,19 @@ public class ServiceConfig {
 	private String signerAlgorithm = "SHA1withRSA";
 	private boolean verifyCRL = false;
 	private boolean addSignCertificate = true;
+	private List<Boolean> allowedServices;
 	
 	public void load(Configuration configuration) throws IOException {
 		signerAlgorithm = configuration.getSignatureAlgorithm();
 		hashAlgorithm = DigestFactory.getOID(configuration.getHashAlgorithm());
 		verifyCRL = configuration.getVerifyCRL();
 		addSignCertificate = configuration.getAddSertificateToSignature();
+		allowedServices = new ArrayList<Boolean>(4);
+		//Beachten die Reihenfolge!!!
+		allowedServices.add(configuration.getCpdAllowed());
+		allowedServices.add(configuration.getVsdAllowed());
+		allowedServices.add(configuration.getVpkcAllowed());
+		allowedServices.add(configuration.getCcpdAllowed());
 	}
 
 	public ASN1ObjectIdentifier getHashAlgorithm() {
@@ -46,5 +55,11 @@ public class ServiceConfig {
 
 	public boolean isAddSignCertificate() {
 		return addSignCertificate;
+	}
+
+	public boolean asAllowed(int service) {
+		if(service > allowedServices.size())
+			return false;
+		return allowedServices.get(service-1);
 	}
 }

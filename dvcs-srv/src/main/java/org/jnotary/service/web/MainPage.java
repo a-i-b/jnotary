@@ -35,7 +35,7 @@ public class MainPage extends WebPage {
 	@Override
 	protected void onInitialize() {
 		
-		add(new Label("message", "DVCS service administration console"));
+		add(new Label("message", "jNotary administration console"));
 		
 		// create a list of ITab objects used to feed the tabbed panel
 		List<ITab> tabs = new ArrayList<ITab>();

@@ -11,7 +11,10 @@
 package org.jnotary.service.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import org.jnotary.dvcs.ServiceType;
 
 /**
  * Entity implementation class for Entity: Configuration
@@ -20,7 +23,6 @@ import javax.persistence.*;
 @Entity
 @Table
 public class Configuration implements Serializable {
-
 	
 	private static final long serialVersionUID = 1L;
 
@@ -42,6 +44,10 @@ public class Configuration implements Serializable {
 	private String trustedRootStorePassword = "";
 	@Transient
 	private String trustedRootStoreType = "JKS";
+	private Boolean cpdAllowed = true;
+	private Boolean ccpdAllowed = true;
+	private Boolean vsdAllowed = true;
+	private Boolean vpkcAllowed = true;
 	
 	public Integer getId() {
 		return id;
@@ -120,6 +126,30 @@ public class Configuration implements Serializable {
 	}
 	public void setTrustedRootStoreType(String trustedRootStoreType) {
 		this.trustedRootStoreType = trustedRootStoreType;
+	}
+	public Boolean getCpdAllowed() {
+		return cpdAllowed;
+	}
+	public void setCpdAllowed(Boolean cpdAllowed) {
+		this.cpdAllowed = cpdAllowed;
+	}
+	public Boolean getCcpdAllowed() {
+		return ccpdAllowed;
+	}
+	public void setCcpdAllowed(Boolean ccpdAllowed) {
+		this.ccpdAllowed = ccpdAllowed;
+	}
+	public Boolean getVsdAllowed() {
+		return vsdAllowed;
+	}
+	public void setVsdAllowed(Boolean vsdAllowed) {
+		this.vsdAllowed = vsdAllowed;
+	}
+	public Boolean getVpkcAllowed() {
+		return vpkcAllowed;
+	}
+	public void setVpkcAllowed(Boolean vpkcAllowed) {
+		this.vpkcAllowed = vpkcAllowed;
 	}
 
 }
