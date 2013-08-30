@@ -50,6 +50,7 @@
     <module>dvcs-srv</module>
     <module>dvcs-client</module>
     <module>dvcs-check</module>
+    <module>web-client</module>
   </modules>
   
   <repositories>
