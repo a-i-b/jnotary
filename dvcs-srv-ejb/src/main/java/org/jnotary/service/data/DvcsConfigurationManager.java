@@ -14,71 +14,51 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ejb.LocalBean;
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.jnotary.service.model.CrlDistributionPoint;
 import org.jnotary.service.model.Configuration;
 
 @Stateless
 @LocalBean
-public class CRLManager implements ICRLManager {
+public class DvcsConfigurationManager implements IDvcsConfigurationManager {
+	
 	@Inject
 	private Logger log;
 	
-	@Inject
+	@PersistenceContext
     private EntityManager em;
-
-	@Override
-	public List<CrlDistributionPoint> read() throws Exception {
+    
+    @Override
+	public Configuration read() throws Exception {
 		try {
-			Query query = em.createQuery("SELECT e FROM "+CrlDistributionPoint.class.getName()+" e");
-			return query.getResultList();
+			Query query = em.createQuery("SELECT e FROM "+Configuration.class.getName()+" e");
+			List<Configuration> list = query.getResultList();
+			if(list != null && !list.isEmpty()) {
+				return list.get(0);
+			}
+			return null; 		
 		} catch (Exception e) {
 			log.severe(e.getMessage());
 			throw e;
 		}
-	}
-	
+    }
+    
 	@Override
-	public CrlDistributionPoint store(CrlDistributionPoint crl) throws Exception {		
-		if (crl == null)
-			return null;
-		
+	public Configuration store(Configuration configuration) throws Exception {
 		try {
-			if (crl.getId() == null) {
-				em.persist(crl);
+			if (configuration.getId() == null){
+				em.persist(configuration);
 			} else {
-				em.merge(crl);
+				em.merge(configuration);
 			}
-			return crl;
+			return configuration;			
 		} catch (Exception e) {
 			log.severe(e.getMessage());
 			throw e;
 		}
 	}
-
-	@Override
-	public void remove(Long urlId) throws Exception {
-		try {
-			if (urlId != null) {
-				CrlDistributionPoint obj = em.find(CrlDistributionPoint.class, urlId);
-				em.remove(obj);
-			}
-		} catch (Exception e) {
-			log.severe(e.getMessage());
-			throw e;
-		}
-	}
-
-	@Override
-	public CrlDistributionPoint getById(Long crlUrlId) {
-		// TODO Auto-generated method stub
-		return em.find(CrlDistributionPoint.class, crlUrlId);
-	}
-	
 }

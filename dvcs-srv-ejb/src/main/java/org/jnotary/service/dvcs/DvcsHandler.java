@@ -16,6 +16,8 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.logging.Logger;
 
+import javax.ejb.LocalBean;
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -28,12 +30,14 @@ import org.jnotary.dvcs.DVCSRequest;
 import org.jnotary.dvcs.DVCSResponse;
 import org.jnotary.dvcs.ServiceType;
 import org.jnotary.dvcs.util.DVCSException;
+import org.jnotary.dvcs.util.ErrorResponseFactory;
 import org.jnotary.dvcs.util.StatusInfoFactory;
 import org.jnotary.service.util.CryptoService;
-import org.jnotary.service.util.GlobalResources;
 import org.jnotary.service.util.IGlobalResources;
 
 @Stateless
+@LocalBean
+@Remote(IDvcsHandler.class)
 public class DvcsHandler implements IDvcsHandler {
 	@Inject
 	private Logger log;	
@@ -43,24 +47,40 @@ public class DvcsHandler implements IDvcsHandler {
 	private IGlobalResources globalResources;
 	
 	@Override
-	public DVCSResponse handle(DVCSRequest request) throws DVCSException {
-		if(!globalResources.getServiceConfig().asAllowed(request.getRequestInformation().getService())) {
-			throw new DVCSException(PKIStatus.REJECTION,
-					"Service is disabled",
-					PKIFailureInfo.systemUnavail);
+	public byte[] handle(DVCSRequest request) throws Exception {
+		DVCSResponse response = null;
+		try {
+			if(!globalResources.getServiceConfig().asAllowed(request.getRequestInformation().getService())) {
+				throw new DVCSException(PKIStatus.REJECTION,
+						"Service is disabled",
+						PKIFailureInfo.systemUnavail);
+			}
+			
+			switch(request.getRequestInformation().getService()) {
+			case ServiceType.CPD:
+				response = handleCpd(request);
+				break;
+			case ServiceType.CCPD:
+				response = handleCcpd(request);
+				break;
+			case ServiceType.VPKC:
+				response = handleVpkc(request);
+				break;
+			case ServiceType.VSD:
+				response = handleVsd(request);			
+				break;
+			}			
+		} catch (DVCSException e) {
+			//Signature is bad
+			log.severe(e.getLocalizedMessage());
+			response = ErrorResponseFactory.getInstance(e);
+		} catch (Exception e) {
+			//Signature is bad
+			log.severe(e.getLocalizedMessage());
+			response = ErrorResponseFactory.getInstance(PKIStatus.REJECTION, e.getLocalizedMessage());
 		}
-		
-		switch(request.getRequestInformation().getService()) {
-		case ServiceType.CPD:
-			return handleCpd(request);
-		case ServiceType.CCPD:
-			return handleCcpd(request);
-		case ServiceType.VPKC:
-			return handleVpkc(request);
-		case ServiceType.VSD:
-			return handleVsd(request);			
-		}
-		return null;
+					
+		return cryptoService.sign(response.getEncoded());
 	}
 	
 	private DVCSResponse handleCpd(DVCSRequest request) throws DVCSException {

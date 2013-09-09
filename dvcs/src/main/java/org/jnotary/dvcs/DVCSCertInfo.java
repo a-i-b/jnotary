@@ -13,13 +13,11 @@ package org.jnotary.dvcs;
 import java.util.Enumeration;
 
 import org.bouncycastle.asn1.ASN1EncodableVector;
-import org.bouncycastle.asn1.ASN1Enumerated;
 import org.bouncycastle.asn1.ASN1Integer;
 import org.bouncycastle.asn1.ASN1Object;
 import org.bouncycastle.asn1.ASN1Primitive;
 import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.ASN1TaggedObject;
-import org.bouncycastle.asn1.DEREnumerated;
 import org.bouncycastle.asn1.DERInteger;
 import org.bouncycastle.asn1.DERSequence;
 import org.bouncycastle.asn1.DERTaggedObject;
@@ -138,6 +136,7 @@ public class DVCSCertInfo  extends ASN1Object {
 		this.extensions = extensions;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	private DVCSCertInfo(ASN1Sequence seq){
         Enumeration e = seq.getObjects();
 
@@ -157,13 +156,13 @@ public class DVCSCertInfo  extends ASN1Object {
         		ASN1TaggedObject tagObj = (ASN1TaggedObject)obj;
         		switch(tagObj.getTagNo()) {
         		case 0:
-        			dvStatus = dvStatus.getInstance(tagObj.getObject());
+        			dvStatus = PKIStatusInfo.getInstance(tagObj.getObject());
         			break;
         		case 1:
-        			policy = policy.getInstance(tagObj.getObject());
+        			policy = PolicyInformation.getInstance(tagObj.getObject());
         			break;
         		case 2:
-        			reqSignature = reqSignature.getInstance(tagObj.getObject());
+        			reqSignature = SignerInfo.getInstance(tagObj.getObject());
         			break;
         		case 3:
         			ASN1Sequence seqCerts = DERSequence.getInstance(tagObj.getObject());
@@ -175,7 +174,7 @@ public class DVCSCertInfo  extends ASN1Object {
         			break;
         		}
         	} else {
-    			extensions.getInstance(obj);
+    			Extensions.getInstance(obj);
         	}
         }
 		

@@ -26,10 +26,8 @@ import org.jnotary.dvcs.DVCSRequest;
 import org.jnotary.dvcs.DVCSResponse;
 import org.jnotary.dvcs.util.DVCSException;
 import org.jnotary.dvcs.util.ErrorResponseFactory;
-import org.jnotary.service.dvcs.DvcsHandler;
 import org.jnotary.service.dvcs.IDvcsHandler;
 import org.jnotary.service.util.CryptoService;
-import org.jnotary.service.util.GlobalResources;
 import org.jnotary.service.util.IGlobalResources;
 
 import java.util.logging.Logger;
@@ -65,35 +63,38 @@ public class DvcsRequestHandler {
 			return Response.status(400).build();
 		}
 		
-		DVCSResponse response = null;
+		byte[] signedResponse = null;
 		try {
+			log.fine("Signature verification..");
 			VerifyResult dvcsReqVerifyResult = cryptoService.verifySignature(incomingRequest);
 			//TODO: checkCertificateEnabled(dvcsReqVerifyResult);
 			cryptoService.verifyCerificates(dvcsReqVerifyResult, globalResources.getServiceConfig().isVerifyCRL());
 		
+			log.fine("Message parsing..");
 			DVCSRequest dvcsRequest = getDVCSRequest(dvcsReqVerifyResult.getContent());
 			log.info("Service: " + dvcsRequest.getRequestInformation().getService());
 			log.info(dvcsRequest.getRequestInformation().getNonce().getPositiveValue().toString());
 			log.info(dvcsRequest.getRequestInformation().getRequestTime().getGenTime().getTimeString());
 
-			response = dvcsHandler.handle(dvcsRequest);
-			
-		} catch (DVCSException e) {
-			//Signature is bad
-			log.severe(e.getLocalizedMessage());
-			response = ErrorResponseFactory.getInstance(e);
-		} catch (Exception e) {
-			//Signature is bad
-			log.severe(e.getLocalizedMessage());
-			response = ErrorResponseFactory.getInstance(PKIStatus.REJECTION, e.getLocalizedMessage());
-		}
-					
-		byte[] signedResponse;
-		try {
-			signedResponse = cryptoService.sign(response.getEncoded());
+			signedResponse = dvcsHandler.handle(dvcsRequest);
+		} catch(DVCSException e) {
+			try {
+				DVCSResponse response = ErrorResponseFactory.getInstance(e);
+				signedResponse = cryptoService.sign(response.getEncoded());
+			} catch (Exception ex) {
+				log.severe(ex.getLocalizedMessage());
+				return Response.status(500).build();
+			}
+		
 		} catch (Exception e) {
 			log.severe(e.getLocalizedMessage());
-			return Response.status(500).build();
+			DVCSResponse response = ErrorResponseFactory.getInstance(PKIStatus.REJECTION, e.getLocalizedMessage());
+			try {
+				signedResponse = cryptoService.sign(response.getEncoded());
+			} catch (Exception ex) {
+				log.severe(ex.getLocalizedMessage());
+				return Response.status(500).build();
+			}
 		}
 		
 		return Response.status(200).entity(signedResponse).build();

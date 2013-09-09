@@ -12,8 +12,6 @@ package org.jnotary.crypto.util;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URL;
 import java.util.Properties;
 
 import org.bouncycastle.asn1.nist.NISTObjectIdentifiers;

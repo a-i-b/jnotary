@@ -11,9 +11,8 @@
 package org.jnotary.service.dvcs;
 
 import org.jnotary.dvcs.DVCSRequest;
-import org.jnotary.dvcs.DVCSResponse;
-import org.jnotary.dvcs.util.DVCSException;
+
 
 public interface IDvcsHandler {
-	DVCSResponse handle(DVCSRequest request) throws DVCSException;
+	byte[] handle(DVCSRequest request) throws Exception;
 }

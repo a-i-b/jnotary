@@ -20,6 +20,7 @@ public class ClientTest
 	String filein;
 	
 	@Before
+    @SuppressWarnings("static-access")
 	public void before() {
 		String keyPath = getClass().getClassLoader().getSystemResource("Client1.p12").getPath();
 		keyPath = keyPath.replace("/Client1.p12", "");
@@ -27,7 +28,7 @@ public class ClientTest
 		configFile = getClass().getClassLoader().getSystemResource("myKey.properties").getPath();
 		filein = getClass().getClassLoader().getSystemResource("txtfile.in").getPath();
 	}
-	@Ignore
+//	@Ignore
 	@Test
 	public void cpd() throws Exception {
 
@@ -55,6 +56,7 @@ public class ClientTest
 
 	@Ignore
 	@Test
+    @SuppressWarnings("static-access")
 	public void vsd() throws Exception {
 
 		String p7sfile = getClass().getClassLoader().getSystemResource("test.p7s").getPath();		
@@ -69,6 +71,7 @@ public class ClientTest
 
 	@Ignore
 	@Test
+    @SuppressWarnings("static-access")
 	public void vpkc() throws Exception {
 
 		String vpkcfile = getClass().getClassLoader().getSystemResource("Client1.cer").getPath();		
@@ -83,6 +86,7 @@ public class ClientTest
 	
 	@Ignore
 	@Test
+    @SuppressWarnings("static-access")
 	public void vpkcOfRevoked() throws Exception {
 
 		String vpkcfile = getClass().getClassLoader().getSystemResource("Gesperrt.cer").getPath();		

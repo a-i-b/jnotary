@@ -18,23 +18,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.SecureRandom;
 import java.util.Arrays;
-import java.util.logging.Logger;
 
-import javax.ejb.AfterBegin;
 import javax.inject.Inject;
 import javax.ws.rs.core.MediaType;
 
-
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.lf5.viewer.configure.ConfigurationManager;
-import org.bouncycastle.asn1.DERGeneralizedTime;
-import org.bouncycastle.asn1.DERInteger;
-import org.bouncycastle.asn1.DEROctetString;
 import org.bouncycastle.asn1.cmp.PKIFailureInfo;
 import org.bouncycastle.asn1.cmp.PKIStatus;
 import org.bouncycastle.asn1.nist.NISTObjectIdentifiers;
@@ -42,9 +33,7 @@ import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
 import org.bouncycastle.asn1.x509.DigestInfo;
 import org.codehaus.plexus.util.FileUtils;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
 import org.jboss.resteasy.plugins.providers.RegisterBuiltin;
@@ -94,9 +83,10 @@ public class RestTest {
 	private static File clientP12 = new File(System.getProperty("java.io.tmpdir"), "Client1.p12");
 	private static File clientCer = new File(System.getProperty("java.io.tmpdir"), "Client1.cer");
 	private static File testP7S = new File(System.getProperty("java.io.tmpdir"), "test.p7s");
-
+    
+	@SuppressWarnings("static-access")
 	public static void initExternalFiles() throws IOException {
-        URL keyStorePath = RestTest.class.getClassLoader().getSystemResource("Notary1.p12");
+		URL keyStorePath = RestTest.class.getClassLoader().getSystemResource("Notary1.p12");
         System.out.println("Copied " + keyStorePath);
         FileUtils.copyURLToFile(keyStorePath, tmpP12);
         
@@ -193,7 +183,7 @@ public class RestTest {
 			
     		DVCSResponse respIn = removeSignature(response.getEntity());
     		assertEquals(PKIStatus.REJECTION, respIn.getDvErrorNote().getTransactionStatus().getStatus().intValue());			
-    		System.out.printf("Status string is incorrect: {}\n", respIn.getDvErrorNote().getTransactionStatus().getStatusString());
+    		System.out.printf("Status string: %s\n", respIn.getDvErrorNote().getTransactionStatus().getStatusString().getStringAt(0));
     		assertEquals(PKIFailureInfo.badMessageCheck, respIn.getDvErrorNote().getTransactionStatus().getFailInfo().intValue());			
 
 		} catch (Exception e) {

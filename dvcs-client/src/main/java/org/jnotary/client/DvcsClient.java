@@ -114,6 +114,7 @@ public class DvcsClient {
 		}
     }
 	
+    @SuppressWarnings("static-access")
     private static Option createOption(String shortOptionName, String optionName, String description, boolean hasValue, boolean isMandatory )
 	{
 		OptionBuilder opt = OptionBuilder.withLongOpt(optionName)

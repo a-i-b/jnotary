@@ -45,6 +45,7 @@ public class DVCSErrorNotice extends ASN1Object {
         return new DERSequence(v);
 	}
 
+	@SuppressWarnings("rawtypes")
 	private DVCSErrorNotice(ASN1Sequence seq) {
         Enumeration e = seq.getObjects();
         transactionStatus = PKIStatusInfo.getInstance(e.nextElement());

@@ -11,7 +11,6 @@
 package org.jnotary.crypto;
 
 import java.security.KeyStore;
-import java.security.KeyStore.Entry;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableEntryException;
@@ -29,6 +28,7 @@ public class TrustedStore {
 	private Store store = null;
 	private KeyStore keyStore = null;
 
+	@SuppressWarnings("rawtypes")
 	public TrustedStore(IKeyStorage storage) throws NoSuchAlgorithmException, UnrecoverableEntryException, KeyStoreException, CertificateEncodingException {
 		
 		certificates = new ArrayList<java.security.cert.X509Certificate>();

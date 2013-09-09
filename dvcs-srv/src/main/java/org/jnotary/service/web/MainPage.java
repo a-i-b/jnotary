@@ -16,22 +16,20 @@ import java.util.List;
 
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 
-import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.extensions.ajax.markup.html.tabs.AjaxTabbedPanel;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.resource.CssResourceReference;
-import org.apache.wicket.request.resource.ResourceReference;
 
 public class MainPage extends WebPage {
 		
+	private static final long serialVersionUID = 4695126542430281242L;
+
 	@Override
 	protected void onInitialize() {
 		
@@ -41,6 +39,8 @@ public class MainPage extends WebPage {
 		List<ITab> tabs = new ArrayList<ITab>();
 		tabs.add(new AbstractTab(new Model<String>("Settings"))
 		{			
+			private static final long serialVersionUID = 2165243226311723490L;
+
 			@Override
 			public Panel getPanel(String panelId)
 			{
@@ -50,6 +50,8 @@ public class MainPage extends WebPage {
 
 		tabs.add(new AbstractTab(new Model<String>("Trusted roots"))
 		{
+			private static final long serialVersionUID = -3706739332752685112L;
+
 			@Override
 			public Panel getPanel(String panelId)
 			{
@@ -59,6 +61,8 @@ public class MainPage extends WebPage {
 
 		tabs.add(new AbstractTab(new Model<String>("Additional CRLs"))
 		{
+			private static final long serialVersionUID = -8317956111171183057L;
+
 			@Override
 			public Panel getPanel(String panelId)
 			{

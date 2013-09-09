@@ -148,33 +148,43 @@ public class CRLLoader {
 		if (crldpExt == null) {
 			return Collections.emptyList();
 		}
-		ASN1InputStream oAsnInStream = new ASN1InputStream(
-				new ByteArrayInputStream(crldpExt));
-		ASN1Primitive derObjCrlDP = oAsnInStream.readObject();
-		DEROctetString dosCrlDP = (DEROctetString) derObjCrlDP;
-		byte[] crldpExtOctets = dosCrlDP.getOctets();
-		ASN1InputStream oAsnInStream2 = new ASN1InputStream(
-				new ByteArrayInputStream(crldpExtOctets));
-		ASN1Primitive derObj2 = oAsnInStream2.readObject();
-		CRLDistPoint distPoint = CRLDistPoint.getInstance(derObj2);
+		ASN1InputStream oAsnInStream = null;
+		ASN1InputStream oAsnInStream2 = null;
 		List<String> crlUrls = new ArrayList<String>();
-		for (DistributionPoint dp : distPoint.getDistributionPoints()) {
-            DistributionPointName dpn = dp.getDistributionPoint();
-            // Look for URIs in fullName
-            if (dpn != null) {
-                if (dpn.getType() == DistributionPointName.FULL_NAME) {
-                    GeneralName[] genNames = GeneralNames.getInstance(
-                        dpn.getName()).getNames();
-                    // Look for an URI
-                    for (int j = 0; j < genNames.length; j++) {
-                        if (genNames[j].getTagNo() == GeneralName.uniformResourceIdentifier) {
-                            String url = DERIA5String.getInstance(
-                                genNames[j].getName()).getString();
-                            crlUrls.add(url);
-                        }
-                    }
-                }
-            }
+
+		try {
+			oAsnInStream = new ASN1InputStream(
+					new ByteArrayInputStream(crldpExt));
+			ASN1Primitive derObjCrlDP = oAsnInStream.readObject();
+			DEROctetString dosCrlDP = (DEROctetString) derObjCrlDP;
+			byte[] crldpExtOctets = dosCrlDP.getOctets();
+			oAsnInStream2 = new ASN1InputStream(
+					new ByteArrayInputStream(crldpExtOctets));
+			ASN1Primitive derObj2 = oAsnInStream2.readObject();
+			CRLDistPoint distPoint = CRLDistPoint.getInstance(derObj2);
+			for (DistributionPoint dp : distPoint.getDistributionPoints()) {
+	            DistributionPointName dpn = dp.getDistributionPoint();
+	            // Look for URIs in fullName
+	            if (dpn != null) {
+	                if (dpn.getType() == DistributionPointName.FULL_NAME) {
+	                    GeneralName[] genNames = GeneralNames.getInstance(
+	                        dpn.getName()).getNames();
+	                    // Look for an URI
+	                    for (int j = 0; j < genNames.length; j++) {
+	                        if (genNames[j].getTagNo() == GeneralName.uniformResourceIdentifier) {
+	                            String url = DERIA5String.getInstance(
+	                                genNames[j].getName()).getString();
+	                            crlUrls.add(url);
+	                        }
+	                    }
+	                }
+	            }
+			}
+		} finally {
+			if(oAsnInStream != null)
+				oAsnInStream.close();
+			if(oAsnInStream2 != null)
+				oAsnInStream2.close();
 		}
 		return crlUrls;
 	}

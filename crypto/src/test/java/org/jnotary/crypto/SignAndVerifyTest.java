@@ -16,22 +16,8 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.math.BigInteger;
-import java.security.InvalidKeyException;
-import java.security.KeyStore;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.Principal;
-import java.security.PublicKey;
-import java.security.SignatureException;
-import java.security.cert.CertificateEncodingException;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateExpiredException;
-import java.security.cert.CertificateNotYetValidException;
-import java.security.cert.X509Certificate;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Set;
 
 import org.bouncycastle.asn1.cms.Attribute;
 import org.bouncycastle.asn1.cms.CMSAttributes;
@@ -51,6 +37,7 @@ import org.junit.Test;
 // create trusted root store
 // keytool -import -alias ca1  -keystore trustedroots.jks  -file Client1_ca.cer
 
+@SuppressWarnings("static-access")
 public class SignAndVerifyTest {
 
 	private void sign(boolean addCert) throws Exception {
@@ -65,11 +52,16 @@ public class SignAndVerifyTest {
 		signerParameters.setDetached(false);
 		byte[] signed = signer.sign(userKeyStorage, "Hello world!!".getBytes(), signerParameters);
 		
+		FileOutputStream fos = null;
         try{
-        	FileOutputStream fos = new FileOutputStream("/tmp/s1.dat");
+        	fos = new FileOutputStream("/tmp/s1.dat");
         	fos.write(signed);
-        }catch (Exception e){//Catch exception if any
+        } catch (Exception e){//Catch exception if any
         	  System.err.println("Error: " + e.getMessage());
+        } finally {
+        	if(fos != null) {
+        		fos.close();
+        	}
         }
 	}
 	

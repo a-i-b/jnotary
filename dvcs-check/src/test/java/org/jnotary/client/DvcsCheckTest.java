@@ -22,6 +22,7 @@ public class DvcsCheckTest {
 	private String dvcsFile;
 	
 	@Before
+    @SuppressWarnings("static-access")
 	public void before() {
 		String keyPath = getClass().getClassLoader().getSystemResource("Client1.p12").getPath();
 		keyPath = keyPath.replace("/Client1.p12", "");
@@ -30,7 +31,7 @@ public class DvcsCheckTest {
 		srcFile = getClass().getClassLoader().getSystemResource("txtfile.in").getPath();
 		dvcsFile = getClass().getClassLoader().getSystemResource("cpd-file.out").getPath();
 	}
-//	@Ignore
+	@Ignore
 	@Test
 	public void checkCpd() throws Exception {
 

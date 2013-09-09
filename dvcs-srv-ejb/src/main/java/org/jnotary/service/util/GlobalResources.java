@@ -13,7 +13,6 @@ package org.jnotary.service.util;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.ejb.Remote;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
@@ -27,13 +26,7 @@ import org.jnotary.service.data.IDvcsConfigurationManager;
 import org.jnotary.service.model.CrlDistributionPoint;
 import org.jnotary.service.model.Configuration;
 
-
-import java.io.IOException;
 import java.net.URL;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableEntryException;
-import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.util.List;
 import java.util.Properties;

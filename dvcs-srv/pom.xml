@@ -7,7 +7,7 @@
 	<artifactId>dvcs-srv</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>jNotary-Service</name>
+	<name>jNotary Service</name>
 	<description>jNotary service</description>
 
 	<parent>
@@ -16,7 +16,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
     
-        <properties>
+    <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         
         <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
@@ -28,6 +28,7 @@
 
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
+        <version.ejb.plugin>2.3</version.ejb.plugin>
     </properties>
     
     <dependencyManagement>
@@ -71,6 +72,13 @@
 			<artifactId>dvcs</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+		   <groupId>org.jnotary.service</groupId>
+		   <artifactId>dvcs-srv-ejb</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		   <type>ejb</type>
+		</dependency>
+
 
         <dependency>
             <groupId>org.apache.wicket</groupId>
@@ -226,15 +234,15 @@
 				processors -->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.1</version>
+				<version>${version.compiler.plugin}</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
 				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.1.1</version>
+				<version>${version.war.plugin}</version>
 				<configuration>
 					<!-- Java EE 6 doesn't require web.xml, Maven needs to catch up! -->
 					<failOnMissingWebXml>false</failOnMissingWebXml>
@@ -248,16 +256,18 @@
 				<version>7.1.1.Final</version>
 			</plugin>
 			<plugin>
-			  <groupId>org.apache.maven.plugins</groupId>
-			  <artifactId>maven-war-plugin</artifactId>
-			  <configuration>
-			     <archive>
-			        <manifestEntries>
-			           <Dependencies>org.jboss.msc</Dependencies>
-			        </manifestEntries>  
-			     </archive>
-			  </configuration>
-			</plugin>   
+			   <groupId>net.unto.maven.plugins</groupId>
+			   <artifactId>maven-junit4-plugin</artifactId>
+			   <version>1.0-SNAPSHOT</version>
+			   <executions>
+			     <execution>
+			       <phase>test</phase>
+			       <goals>
+			         <goal>test</goal>
+			       </goals>
+			     </execution>
+			   </executions>
+			 </plugin>          
 		</plugins>
 	</build>
 

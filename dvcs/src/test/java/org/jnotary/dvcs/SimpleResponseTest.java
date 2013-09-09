@@ -74,7 +74,7 @@ public class SimpleResponseTest {
 
 		PKIStatus status = PKIStatus.getInstance(new DERInteger(PKIStatus.REJECTION));
 		PKIFreeText    statusString = new PKIFreeText("Free text");
-	    PKIFailureInfo failInfo = new PKIFailureInfo(PKIFailureInfo.BAD_REQUEST);
+	    PKIFailureInfo failInfo = new PKIFailureInfo(PKIFailureInfo.badRequest);
 	        
 		PKIStatusInfo	transactionStatus = new PKIStatusInfo(status, statusString, failInfo);
 		

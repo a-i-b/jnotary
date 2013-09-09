@@ -10,19 +10,10 @@
  ******************************************************************************/
 package org.jnotary.dvcs;
 
-import java.util.Enumeration;
-
 import org.bouncycastle.asn1.ASN1Choice;
-import org.bouncycastle.asn1.ASN1EncodableVector;
-import org.bouncycastle.asn1.ASN1Enumerated;
-import org.bouncycastle.asn1.ASN1Integer;
 import org.bouncycastle.asn1.ASN1Object;
 import org.bouncycastle.asn1.ASN1Primitive;
-import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.ASN1TaggedObject;
-import org.bouncycastle.asn1.DEREnumerated;
-import org.bouncycastle.asn1.DERInteger;
-import org.bouncycastle.asn1.DERSequence;
 import org.bouncycastle.asn1.DERTaggedObject;
 import org.bouncycastle.asn1.cmp.PKIStatusInfo;
 import org.bouncycastle.asn1.cms.ContentInfo;
@@ -34,7 +25,6 @@ import org.bouncycastle.asn1.smime.SMIMECapabilities;
 import org.bouncycastle.asn1.x509.Certificate;
 import org.bouncycastle.asn1.x509.CertificateList;
 import org.bouncycastle.asn1.x509.Extension;
-import org.bouncycastle.asn1.x509.Extensions;
 import org.bouncycastle.asn1.x509.X509Extension;
 
 /*
@@ -134,31 +124,31 @@ public class CertEtcToken extends ASN1Object implements ASN1Choice {
     		ASN1TaggedObject tagObj = (ASN1TaggedObject)obj;
     		switch(tagObj.getTagNo()) {
     		case 0:
-    			certificate = certificate.getInstance(tagObj.getObject());
+    			certificate = Certificate.getInstance(tagObj.getObject());
     			break;
     		case 1:
-    			esscertid = esscertid.getInstance(tagObj.getObject());
+    			esscertid = ESSCertID.getInstance(tagObj.getObject());
     			break;
     		case 2:
-    			pkistatus = pkistatus.getInstance(tagObj.getObject());
+    			pkistatus = PKIStatusInfo.getInstance(tagObj.getObject());
     			break;
     		case 3:
-    			assertion = assertion.getInstance(tagObj.getObject());
+    			assertion = ContentInfo.getInstance(tagObj.getObject());
     			break;
     		case 4:
-    			crl = crl.getInstance(tagObj.getObject());
+    			crl = CertificateList.getInstance(tagObj.getObject());
     			break;
     		case 5:
-    			ocspcertstatus = ocspcertstatus.getInstance(tagObj.getObject());
+    			ocspcertstatus = CertStatus.getInstance(tagObj.getObject());
     			break;
     		case 6:
-    			oscpcertid = oscpcertid.getInstance(tagObj.getObject());
+    			oscpcertid = CertID.getInstance(tagObj.getObject());
     			break;
     		case 7:
-    			oscpresponse = oscpresponse.getInstance(tagObj.getObject());
+    			oscpresponse = OCSPResponse.getInstance(tagObj.getObject());
     			break;
     		case 8:
-    			capabilities = capabilities.getInstance(tagObj.getObject());
+    			capabilities = SMIMECapabilities.getInstance(tagObj.getObject());
     			break;
     		}
    		

@@ -50,6 +50,7 @@ public class CryptoHelper {
 		return result.getContent();		
 	}  
 	
+	@SuppressWarnings("rawtypes")
 	public static List<String> getSignatures() {
 		Provider[] providers = Security.getProviders();
 		List<String> signatures = new ArrayList<String>();
@@ -67,6 +68,7 @@ public class CryptoHelper {
 		return signatures;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static List<String> getMessageDigests() {
 		Provider[] providers = Security.getProviders();
 		List<String> messageDigests = new ArrayList<String>();

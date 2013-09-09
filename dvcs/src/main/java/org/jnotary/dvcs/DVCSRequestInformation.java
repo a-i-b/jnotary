@@ -65,6 +65,7 @@ public class DVCSRequestInformation extends ASN1Object{
     	this.version = new DERInteger(version);
     }
        
+	@SuppressWarnings("rawtypes")
     private DVCSRequestInformation(ASN1Sequence seq)
     {
         Enumeration e = seq.getObjects();
@@ -83,19 +84,19 @@ public class DVCSRequestInformation extends ASN1Object{
         		ASN1TaggedObject tagObj = (ASN1TaggedObject)obj;
         		switch(tagObj.getTagNo()) {
         		case 0:
-        			requester = requester.getInstance(tagObj.getObject());
+        			requester = GeneralNames.getInstance(tagObj.getObject());
         			break;
         		case 1:
-        			requestPolicy = requestPolicy.getInstance(tagObj.getObject());
+        			requestPolicy = PolicyInformation.getInstance(tagObj.getObject());
         			break;
         		case 2:
-        			dvcs = dvcs.getInstance(tagObj.getObject());
+        			dvcs = GeneralNames.getInstance(tagObj.getObject());
         			break;
         		case 3:
-        			dataLocations = dataLocations.getInstance(tagObj.getObject());
+        			dataLocations = GeneralNames.getInstance(tagObj.getObject());
         			break;
         		case 4:
-        			extensions = extensions.getInstance(tagObj.getObject());
+        			extensions = Extensions.getInstance(tagObj.getObject());
         			break;
         		}
         	} else if (obj instanceof ASN1Integer){

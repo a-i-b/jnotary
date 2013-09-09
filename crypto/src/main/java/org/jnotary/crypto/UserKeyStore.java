@@ -11,13 +11,9 @@
 package org.jnotary.crypto;
 
 import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
-import java.security.UnrecoverableEntryException;
-import java.util.ArrayList;
+
 import java.util.Arrays;
-import java.util.List;
 
 import org.bouncycastle.cert.jcajce.JcaCertStore;
 import org.bouncycastle.util.Store;

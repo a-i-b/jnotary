@@ -16,9 +16,7 @@ import org.bouncycastle.asn1.ASN1EncodableVector;
 import org.bouncycastle.asn1.ASN1Object;
 import org.bouncycastle.asn1.ASN1Primitive;
 import org.bouncycastle.asn1.ASN1Sequence;
-import org.bouncycastle.asn1.DERInteger;
 import org.bouncycastle.asn1.DERSequence;
-import org.bouncycastle.asn1.DERTaggedObject;
 import org.bouncycastle.asn1.x509.GeneralName;
 
 /*
@@ -68,6 +66,7 @@ public class DVCSRequest extends ASN1Object{
 		return data;
 	}
 
+	@SuppressWarnings("rawtypes")
 	private DVCSRequest(ASN1Sequence seq)
     {
         Enumeration e = seq.getObjects();

@@ -12,27 +12,16 @@ package org.jnotary.crypto;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.security.Security;
 import java.security.cert.CRLException;
 import java.security.cert.CertPath;
-import java.security.cert.CertPathBuilder;
-import java.security.cert.CertPathBuilderResult;
-import java.security.cert.CertPathParameters;
 import java.security.cert.CertPathValidator;
-import java.security.cert.CertPathValidatorException;
-import java.security.cert.CertPathValidatorResult;
-import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
-import java.security.cert.PKIXBuilderParameters;
-import java.security.cert.PKIXCertPathBuilderResult;
 import java.security.cert.PKIXCertPathValidatorResult;
 import java.security.cert.PKIXParameters;
 import java.security.cert.TrustAnchor;
 import java.security.cert.X509CRL;
-import java.security.cert.X509CertSelector;
-import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -41,7 +30,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 
 import javax.naming.NamingException;
@@ -50,7 +38,6 @@ import org.bouncycastle.asn1.cms.Attribute;
 import org.bouncycastle.asn1.cms.CMSAttributes;
 import org.bouncycastle.asn1.cms.Time;
 import org.bouncycastle.cert.X509CertificateHolder;
-import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
 import org.bouncycastle.cms.CMSSignedData;
 import org.bouncycastle.cms.CMSTypedData;
 import org.bouncycastle.cms.SignerId;
@@ -93,6 +80,7 @@ public class Verifier {
     }
     
     
+	@SuppressWarnings("rawtypes")
 	public VerifyResult verifySignature(byte[] signedData, TrustedStore trustedUserCertificateStore) throws Exception {
 		CMSSignedData sdata = new CMSSignedData(signedData);
 		Store                   certStore = sdata.getCertificates();
@@ -125,6 +113,7 @@ public class Verifier {
 		return new VerifyResult((byte[])ctd.getContent(), signerInfoList, certificates);
 	}
 
+	@SuppressWarnings("rawtypes")
 	private X509CertificateHolder getCertificateHolder(
 			TrustedStore trustedUserCertificateStore, Store certStore,
 			SignerInformation signer) throws Exception {

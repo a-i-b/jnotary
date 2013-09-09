@@ -14,8 +14,6 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-import org.jnotary.dvcs.ServiceType;
-
 /**
  * Entity implementation class for Entity: Configuration
  *

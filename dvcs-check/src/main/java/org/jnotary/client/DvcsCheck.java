@@ -12,10 +12,8 @@ package org.jnotary.client;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
 
@@ -29,7 +27,6 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.io.HexDump;
 import org.apache.commons.io.IOUtils;
 import org.bouncycastle.asn1.cmp.PKIStatusInfo;
-import org.bouncycastle.asn1.x509.DigestInfo;
 import org.bouncycastle.cms.SignerInformation;
 import org.jnotary.crypto.FileStorage;
 import org.jnotary.crypto.Hasher;
@@ -38,9 +35,7 @@ import org.jnotary.crypto.Verifier;
 import org.jnotary.crypto.Verifier.VerifyResult;
 import org.jnotary.crypto.util.CryptoHelper;
 import org.jnotary.crypto.util.ClientCryptoConfig;
-import org.jnotary.dvcs.DVCSRequest;
 import org.jnotary.dvcs.DVCSResponse;
-import org.jnotary.dvcs.util.DvcsHelper;
 
 
 public class DvcsCheck {
@@ -70,7 +65,6 @@ public class DvcsCheck {
             return;
         }
 
-        DVCSRequest reqOut = null;
         config = new ClientCryptoConfig();
         try {
 			config.load(configPath);
@@ -109,6 +103,7 @@ public class DvcsCheck {
 		return verifier.verifySignature(dvcsData, null);
 	}
 
+    @SuppressWarnings("static-access")	
 	private static Option createOption(String shortOptionName, String optionName, String description, boolean hasValue, boolean isMandatory )
 	{
 		OptionBuilder opt = OptionBuilder.withLongOpt(optionName)
