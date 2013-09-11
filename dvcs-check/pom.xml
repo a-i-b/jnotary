@@ -35,4 +35,54 @@
 	</dependency>
             
   </dependencies>  
+  
+  <build>
+        <plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<!-- this should be first, do not change execution order -->
+					<execution>
+						<id>package-jar-with-dependencies-without-jars</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<archive>
+								<manifest>
+									<mainClass>org.jnotary.client.DvcsCheck</mainClass>
+								</manifest>
+							</archive>
+							<descriptors>
+								<descriptor>assembly.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>package-jar-with-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptorRefs>
+								<descriptorRef>jar-with-dependencies</descriptorRef>
+							</descriptorRefs>
+							<archive>
+								<manifest>
+									<mainClass>org.jnotary.client.DvcsCheck</mainClass>
+								</manifest>
+							</archive>
+						</configuration>
+					</execution>
+
+				</executions>
+			</plugin>
+        </plugins>
+
+    </build>  
 </project>

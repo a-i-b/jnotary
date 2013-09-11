@@ -7,8 +7,8 @@
 	<artifactId>dvcs-srv-ejb</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>ejb</packaging>
-	<name>jNotary Service</name>
-	<description>jNotary service</description>
+	<name>jNotary Service EJB</name>
+	<description>jNotary service ejb</description>
 
 	<parent>
 		<groupId>org.jnotary</groupId>

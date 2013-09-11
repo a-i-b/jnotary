@@ -83,5 +83,5 @@ public class DvcsHelper {
 		} catch (Exception e) {
 			throw new Exception("Can't create vpkc request: " + e.getLocalizedMessage());
 		}
-	}
+	}	
 }

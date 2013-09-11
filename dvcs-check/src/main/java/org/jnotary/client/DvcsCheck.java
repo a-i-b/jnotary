@@ -36,6 +36,7 @@ import org.jnotary.crypto.Verifier.VerifyResult;
 import org.jnotary.crypto.util.CryptoHelper;
 import org.jnotary.crypto.util.ClientCryptoConfig;
 import org.jnotary.dvcs.DVCSResponse;
+import org.jnotary.dvcs.ServiceType;
 
 
 public class DvcsCheck {
@@ -130,7 +131,7 @@ public class DvcsCheck {
 		
 		System.out.println("DVCS-response information");
 		if(response.getDvCertInfo() != null) {
-			System.out.println("Service type:" + response.getDvCertInfo().getRequestInformation().getService());
+			System.out.println("Service type:" + ServiceType.toString(response.getDvCertInfo().getRequestInformation().getService()));
 			System.out.println("Nonce: " + response.getDvCertInfo().getRequestInformation().getNonce().getPositiveValue().toString(16));
 			System.out.println("Response time: " + response.getDvCertInfo().getResponseTime().getGenTime().getTimeString());
 		}

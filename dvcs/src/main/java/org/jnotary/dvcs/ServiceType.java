@@ -18,4 +18,18 @@ public class ServiceType {
 	public static final int VSD = 2; 
 	public static final int VPKC = 3;
 	public static final int CCPD = 4;
+	
+	public static String toString(int type) {
+		switch(type) {
+		case CPD:
+			return "CPD";
+		case VSD:
+			return "VSD";
+		case VPKC:
+			return "VPKC";
+		case CCPD:
+			return "CCPD";
+		}		
+		return "Unknown type";
+	}
 }

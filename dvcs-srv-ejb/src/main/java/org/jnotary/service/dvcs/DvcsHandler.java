@@ -14,6 +14,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.ejb.LocalBean;
@@ -24,12 +25,15 @@ import javax.inject.Inject;
 import org.bouncycastle.asn1.cmp.PKIFailureInfo;
 import org.bouncycastle.asn1.cmp.PKIStatus;
 import org.bouncycastle.asn1.cmp.PKIStatusInfo;
+import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
 import org.bouncycastle.asn1.x509.DigestInfo;
+import org.jnotary.crypto.Hasher;
 import org.jnotary.dvcs.CertEtcToken;
 import org.jnotary.dvcs.DVCSRequest;
 import org.jnotary.dvcs.DVCSResponse;
 import org.jnotary.dvcs.ServiceType;
 import org.jnotary.dvcs.util.DVCSException;
+import org.jnotary.dvcs.util.DvcsHelper;
 import org.jnotary.dvcs.util.ErrorResponseFactory;
 import org.jnotary.dvcs.util.StatusInfoFactory;
 import org.jnotary.service.util.CryptoService;
@@ -82,6 +86,30 @@ public class DvcsHandler implements IDvcsHandler {
 					
 		return cryptoService.sign(response.getEncoded());
 	}
+	
+	@Override
+	public byte[] handle(int serviceType, byte[] inputData, Map<String, String> properties) throws Exception {
+		DVCSRequest reqOut = null;
+		switch(serviceType) {
+		case ServiceType.CPD:
+			reqOut = DvcsHelper.createCpd(inputData, globalResources.getNonce());
+			break;
+		case ServiceType.CCPD:
+			byte[] digestData = Hasher.makeHash(globalResources.getServiceConfig().getHashAlgorithm(), inputData);
+			DigestInfo messageImprint = new DigestInfo(new AlgorithmIdentifier(globalResources.getServiceConfig().getHashAlgorithm()), digestData);
+			reqOut = DvcsHelper.createCcpd(messageImprint, globalResources.getNonce());
+			break;
+		case ServiceType.VPKC:
+			reqOut = DvcsHelper.createVpkc(inputData, globalResources.getNonce());
+			break;
+		case ServiceType.VSD:
+			reqOut = DvcsHelper.createVsd(inputData, globalResources.getNonce());
+			break;
+		}			
+
+		return handle(reqOut);
+	}	
+
 	
 	private DVCSResponse handleCpd(DVCSRequest request) throws DVCSException {
 		DvcsResponseHelper response = new DvcsResponseHelper(globalResources.getSerialNumber(), globalResources.getServiceConfig());
@@ -163,5 +191,4 @@ public class DvcsHandler implements IDvcsHandler {
 		}
 		return certificate;
 	}	
-	
 }

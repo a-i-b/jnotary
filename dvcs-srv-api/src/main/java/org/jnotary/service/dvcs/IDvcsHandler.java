@@ -10,9 +10,12 @@
  ******************************************************************************/
 package org.jnotary.service.dvcs;
 
+import java.util.Map;
+
 import org.jnotary.dvcs.DVCSRequest;
 
 
 public interface IDvcsHandler {
 	byte[] handle(DVCSRequest request) throws Exception;
+	byte[] handle(int serviceType, byte[] inputData, Map<String,String> properties) throws Exception;
 }

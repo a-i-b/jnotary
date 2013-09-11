@@ -31,6 +31,7 @@ import java.security.cert.X509Certificate;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
 @Startup
@@ -52,7 +53,8 @@ public class GlobalResources implements IGlobalResources {
 	private CRLStorage crlStorage;
 	
 	private AtomicInteger serialNumber = new AtomicInteger(0); 
-	
+	private AtomicLong nonce = new AtomicLong(0);
+
 	private ServiceConfig serviceConfig = new ServiceConfig();	
 	
 	public ServiceConfig getServiceConfig() {
@@ -61,6 +63,10 @@ public class GlobalResources implements IGlobalResources {
 
 	public Integer getSerialNumber() {
 		return serialNumber.incrementAndGet();
+	}
+
+	public Long getNonce() {
+		return nonce.incrementAndGet();
 	}
 
 	public CRLStorage getCrlStorage() {

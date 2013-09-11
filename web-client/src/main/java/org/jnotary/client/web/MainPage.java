@@ -36,6 +36,7 @@ import org.apache.wicket.util.file.Folder;
 import org.apache.wicket.util.lang.Bytes;
 import org.apache.wicket.util.resource.AbstractResourceStreamWriter;
 import org.jnotary.dvcs.DVCSRequest;
+import org.jnotary.dvcs.ServiceType;
 import org.jnotary.dvcs.util.DvcsHelper;
 import org.jnotary.service.dvcs.IDvcsHandler;
 
@@ -71,9 +72,8 @@ public class MainPage extends WebPage {
 				public void onSubmit() {
 	            	try {
 		            	byte[] inputData = getFileData();
-						DVCSRequest reqOut = DvcsHelper.createVsd(inputData, new Long(nonce.incrementAndGet()));
-		            	MainPage.this.info("VSD request is created");
-		            	final byte[] response = dvcsHandler.handle(reqOut);
+		            	final byte[] response = dvcsHandler.handle(ServiceType.VSD, inputData, null);
+		            	MainPage.this.info("VSD request");
 		                AbstractResourceStreamWriter rstream = new AbstractResourceStreamWriter() {
 							private static final long serialVersionUID = 2941559584154055746L;
 
@@ -99,9 +99,8 @@ public class MainPage extends WebPage {
 				public void onSubmit() {
 	            	try {
 		            	byte[] inputData = getFileData();
-						DVCSRequest reqOut = DvcsHelper.createCpd(inputData, new Long(nonce.incrementAndGet()));
-		            	MainPage.this.info("CPD request is created");
-		            	final byte[] response = dvcsHandler.handle(reqOut);
+		            	final byte[] response = dvcsHandler.handle(ServiceType.CPD, inputData, null);
+		            	MainPage.this.info("CPD request");
 		                AbstractResourceStreamWriter rstream = new AbstractResourceStreamWriter() {
 							private static final long serialVersionUID = 362721243973608457L;
 
@@ -112,7 +111,7 @@ public class MainPage extends WebPage {
 							}
 		                };
 		         
-		                ResourceStreamRequestHandler handler = new ResourceStreamRequestHandler(rstream, "vsd.dvcs");        
+		                ResourceStreamRequestHandler handler = new ResourceStreamRequestHandler(rstream, "cpd.dvcs");        
 		                getRequestCycle().scheduleRequestHandlerAfterCurrent(handler);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
@@ -128,9 +127,21 @@ public class MainPage extends WebPage {
 				public void onSubmit() {
 					try {
 		            	byte[] inputData = getFileData();
-		            	DVCSRequest reqOut = DvcsHelper.createVpkc(inputData, new Long(nonce.incrementAndGet()));
-		            	MainPage.this.info("VPKC request is created");
-						dvcsHandler.handle(reqOut);
+		            	final byte[] response = dvcsHandler.handle(ServiceType.VPKC, inputData, null);
+		            	MainPage.this.info("VPKC request");
+		                AbstractResourceStreamWriter rstream = new AbstractResourceStreamWriter() {
+							private static final long serialVersionUID = 8416043227109205348L;
+
+							@Override
+							public void write(OutputStream output)
+									throws IOException {
+		                        output.write(response);
+							}
+		                };
+		         
+		                ResourceStreamRequestHandler handler = new ResourceStreamRequestHandler(rstream, "vpkc.dvcs");        
+		                getRequestCycle().scheduleRequestHandlerAfterCurrent(handler);
+
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

@@ -31,5 +31,6 @@ public interface IGlobalResources {
 	public abstract UserKeyStore getMyKeyStore();
 
 	public abstract Integer getSerialNumber();
+	public abstract Long getNonce();
 
 }

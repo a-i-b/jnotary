@@ -52,6 +52,7 @@
     <module>dvcs-check</module>
     <module>web-client</module>
     <module>dvcs-srv-ejb</module>
+    <module>dvcs-srv-api</module>
   </modules>
   
   <repositories>
