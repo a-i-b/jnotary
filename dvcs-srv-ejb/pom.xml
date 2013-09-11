@@ -22,7 +22,11 @@
     </properties>
 	
     <dependencies>
-
+		<dependency>
+			<groupId>org.jnotary.service</groupId>
+			<artifactId>dvcs-srv-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>org.jnotary</groupId>
 			<artifactId>crypto</artifactId>
@@ -102,6 +106,9 @@
                     <!-- Tell Maven we are using EJB 3.1 -->
                     <ejbVersion>3.1</ejbVersion>
               	    <generateClient>true</generateClient>
+              	    <clientIncludes>
+		             <clientInclude>**/IDvcsHandler.class</clientInclude>
+		          </clientIncludes>
                 </configuration>
             </plugin>
         </plugins>
