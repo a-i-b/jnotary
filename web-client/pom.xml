@@ -5,7 +5,6 @@
 
 	<groupId>org.jnotary.client</groupId>
 	<artifactId>web-client</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>Web client</name>
 	<description>jNotary web client example</description>
@@ -61,6 +60,11 @@
 
 		<!-- First declare the APIs we depend on and need for compilation. All 
 			of them are provided by JBoss AS 7 -->
+		<dependency>
+			<groupId>org.jnotary.service</groupId>
+			<artifactId>dvcs-srv-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<!-- dependency>
 			<groupId>org.jnotary</groupId>
 			<artifactId>crypto</artifactId>
@@ -73,8 +77,7 @@
 		</dependency-->
 		<dependency>
 			<groupId>org.jnotary.service</groupId>
-			<artifactId>dvcs-srv-ejb</artifactId>
-			<type>ejb-client</type>
+			<artifactId>dvcs-srv-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
@@ -104,14 +107,6 @@
 			<groupId>org.jboss.seam.conversation</groupId>
 			<artifactId>seam-conversation-weld</artifactId>
 			<version>3.0.0.Final</version>
-		</dependency>
-
-            
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-jaxrs</artifactId>
-			<version>2.3.2.Final</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>

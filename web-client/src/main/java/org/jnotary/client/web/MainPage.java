@@ -16,7 +16,6 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.ejb.EJB;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -38,14 +37,12 @@ import org.apache.wicket.util.lang.Bytes;
 import org.apache.wicket.util.resource.AbstractResourceStreamWriter;
 import org.jnotary.dvcs.DVCSRequest;
 import org.jnotary.dvcs.util.DvcsHelper;
-import org.jnotary.service.dvcs.DvcsHandler;
 import org.jnotary.service.dvcs.IDvcsHandler;
 
 public class MainPage extends WebPage {
  
 	private static final long serialVersionUID = 5307954263442479430L;
 	
-	@EJB(lookup = "ejb:dvcs-srv/ejb//IDvcsHandler!org.jnotary.service.dvcs.DvcsHandler")
 	IDvcsHandler dvcsHandler;	
 	
 	private AtomicInteger nonce = new AtomicInteger(0);
@@ -73,7 +70,6 @@ public class MainPage extends WebPage {
 
 				public void onSubmit() {
 	            	try {
-	            		final IDvcsHandler dvcsHandler = null;
 		            	byte[] inputData = getFileData();
 						DVCSRequest reqOut = DvcsHelper.createVsd(inputData, new Long(nonce.incrementAndGet()));
 		            	MainPage.this.info("VSD request is created");
@@ -102,7 +98,6 @@ public class MainPage extends WebPage {
 
 				public void onSubmit() {
 	            	try {
-	            		final IDvcsHandler dvcsHandler = null;
 		            	byte[] inputData = getFileData();
 						DVCSRequest reqOut = DvcsHelper.createCpd(inputData, new Long(nonce.incrementAndGet()));
 		            	MainPage.this.info("CPD request is created");
@@ -132,7 +127,6 @@ public class MainPage extends WebPage {
 
 				public void onSubmit() {
 					try {
-						final IDvcsHandler dvcsHandler = null;
 		            	byte[] inputData = getFileData();
 		            	DVCSRequest reqOut = DvcsHelper.createVpkc(inputData, new Long(nonce.incrementAndGet()));
 		            	MainPage.this.info("VPKC request is created");
@@ -185,7 +179,6 @@ public class MainPage extends WebPage {
 	protected void onInitialize() {		
 		add(new Label("message", "jNotary web-client"));
 		
-		IDvcsHandler dvcsHandler = null;		
 		try {
 			dvcsHandler = lookupRemote();
 		} catch (NamingException e) {
@@ -216,13 +209,7 @@ public class MainPage extends WebPage {
         final Hashtable jndiProperties = new Hashtable();
         jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
         final Context context = new InitialContext(jndiProperties);
-        final String appName = "";
-        final String moduleName = "dvcs-srv";
-        final String distinctName = "";
-        final String beanName = DvcsHandler.class.getSimpleName();
-        // the remote view fully qualified class name
-        final String viewClassName = IDvcsHandler.class.getName();
-        // let's do the lookup
-        return (IDvcsHandler) context.lookup("ejb:" + appName + "/" + moduleName + "/" + distinctName + "/" + beanName + "!" + viewClassName);
+        return (IDvcsHandler) context.lookup("java:global/dvcs-srv/DvcsHandler!org.jnotary.service.dvcs.IDvcsHandler");
+//        		"ejb:dvcs-srv/dvcs-srv-ejb//IDvcsHandler!org.jnotary.service.dvcs.DvcsHandler");
     }
 }

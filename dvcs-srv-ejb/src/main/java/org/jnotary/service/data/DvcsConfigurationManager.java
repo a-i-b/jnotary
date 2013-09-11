@@ -29,7 +29,7 @@ public class DvcsConfigurationManager implements IDvcsConfigurationManager {
 	@Inject
 	private Logger log;
 	
-	@PersistenceContext
+	@Inject
     private EntityManager em;
     
     @Override

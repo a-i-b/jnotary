@@ -8,7 +8,8 @@
  * Contributors:
  *     Alexander Balashov (balaschow.a@gmail.com) - initial API and implementation
  ******************************************************************************/
-package org.jnotary.service.util;
+
+package org.jnotary.client.util;
 
 import java.util.logging.Logger;
 
@@ -18,14 +19,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 public class Producer {
-	
+/*	
     @Produces
-    @PersistenceContext(unitName="dvcs-srv-ejb")
+    @PersistenceContext(unitName="web-client")
     private EntityManager em;
-
-	@Produces
-	public Logger produceLog(InjectionPoint injectionPoint) {
-		return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
-		
-	}
+*/
 }
