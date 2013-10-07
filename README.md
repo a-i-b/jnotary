@@ -56,7 +56,7 @@ To see the list of options run jar without parameters
 In order for the client to work properly you must create a property file, that contains a path to the user key store, the password for this store, the alias name, and the password for the alias.  
 (See myKey.properties file in source code)
 
-By problems contact   
-balaschow.a@gmail.com
+Contact:   
+a.balashov@gmx.de
 
 
