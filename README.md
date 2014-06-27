@@ -4,7 +4,7 @@ jnotary
 Implementation of Data Validation and Certification Server (RFC 3029)
 
 jnotary is early implementation of DVCS (RFC 3029), built using Java (JEE) technology.
-It is implemented as REST service with use of JBoss AS 7.1. Bouncy Castle Crypto API is used for object generation and many other purposes.
+It is implemented as REST service with use of Wildfly 8.1. Bouncy Castle Crypto API is used for object generation and many other purposes.
 
 Implemented main features:
 - library for generation/parsing of DVCS objects;
@@ -34,17 +34,17 @@ Not supported featurers, that need to be implemented in future
 
 Installing jnotary
 
-1. Install JBoss AS 7.1
-2. Create JBoss "application user" with add-user script  
+1. Install Wildfly 8.1
+2. Create "application user" with add-user script  
 User name: admin  
 Role: dvcs  
 3. Compile project with maven  
 mvn clean install -Dmaven.test.skip=true
-4. Deploy (copy) dvcs-srv.war from taget directory to JBoss deployments directory
+4. Deploy (copy) dvcs-srv.war from taget directory to Wildfly deployments directory
 5. Create user key store (with certificate and private key) in PKCS#12 format and save it to the directory, that is accessible for JEE application
 6. Create trusted root store in JKS format and save it to the directory, that is accessible for JEE application
 7. Add all the nessesary root certificates to the trusted root store
-8. Start JBoss Server
+8. Start Wildfly Server
 9. Open URL http://server address:8080/dvcs-srv/admin
 10. Enter login/password
 11. Enter the path to the user key store, passwords etc. on the tabpanel "Settings"

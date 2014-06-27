@@ -11,38 +11,26 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <jboss.bom.version>1.0.0.Final</jboss.bom.version>    
+    <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
+ 	<version.jboss.spec.javaee.7.0>1.0.0.Final</version.jboss.spec.javaee.7.0>	
+	<version.compiler.plugin>3.1</version.compiler.plugin>
+	<version.ear.plugin>2.6</version.ear.plugin>
+	<version.ejb.plugin>2.3</version.ejb.plugin>
+	<version.war.plugin>2.1.1</version.war.plugin>
+	<version.surefire.plugin>2.12.4</version.surefire.plugin>
+	<version.junit>4.11</version.junit>
+	<version.arquillian.container>8.1.0.Final</version.arquillian.container>
 	
-	<version.maven-compiler-plugin>2.3.2</version.maven-compiler-plugin>
-	<version.maven-dependency-plugin>2.2</version.maven-dependency-plugin>
-	<version.maven-release-plugin>2.1</version.maven-release-plugin>
-	<version.maven.compiler.source>1.6</version.maven.compiler.source>
-	<version.maven.compiler.target>1.6</version.maven.compiler.target>
+	<!-- maven-compiler-plugin -->
+	<maven.compiler.target>1.7</maven.compiler.target>
+	<maven.compiler.source>1.7</maven.compiler.source>
 	
-	<version.java>1.6</version.java>
+	<version.java>1.7</version.java>
+	<version.org.apache.wicket>6.16.0</version.org.apache.wicket>
+	<version.bouncycastle>1.50</version.bouncycastle>
   </properties>
 
   <version>0.0.1-SNAPSHOT</version>
-
-  <dependencies>
-   <dependency>
-     <groupId>junit</groupId>
-     <artifactId>junit</artifactId>
-     <version>4.0</version>
-     <scope>test</scope>
-   </dependency>
-	
-	<dependency>
-	  <groupId>bouncycastle</groupId>
-	  <artifactId>bcpkix-jdk15on</artifactId>
-	  <version>1.49</version>
-    </dependency> 
-	<dependency>
-	  <groupId>bouncycastle</groupId>
-	  <artifactId>bcprov-ext-jdk15on</artifactId>
-	  <version>1.49</version>
-	</dependency> 
-  </dependencies>
 
   <modules>
     <module>dvcs</module>
@@ -54,79 +42,98 @@
     <module>dvcs-srv-ejb</module>
     <module>dvcs-srv-api</module>
   </modules>
-  
-  <repositories>
-    <repository>
-      <id>Bouncycastle</id>
-      <name>Bouncycastle repository</name>
-      <url>http://repo2.maven.org/maven2/org</url>
-     </repository>
-  </repositories>
-  
    
-<dependencyManagement>
-  <dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <!-- JBoss distributes a complete set of Java EE 7 APIs including
+                a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
+                a collection) of artifacts. We use this here so that we always get the correct 
+                versions of artifacts. Here we use the jboss-javaee-7.0-with-tools stack
+                (you can read this as the JBoss stack of the Java EE 7 APIs, with some extras
+                tools for your project, such as Arquillian for testing) and the jboss-javaee-7.0-with-hibernate
+                stack you can read this as the JBoss stack of the Java EE 7 APIs, with extras
+                from the Hibernate family of projects) -->
+            <dependency>
+                <groupId>org.jboss.spec</groupId>
+                <artifactId>jboss-javaee-7.0</artifactId>
+                <version>${version.jboss.spec.javaee.7.0}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
-      <dependency>
-          <groupId>org.jboss.bom</groupId>
-          <artifactId>jboss-javaee-6.0-with-tools</artifactId>
-          <version>${jboss.bom.version}</version>
-          <type>pom</type>
-          <scope>import</scope>
-      </dependency>
-      <dependency>
-          <groupId>org.jboss.bom</groupId>
-          <artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
-          <version>${jboss.bom.version}</version>
-          <type>pom</type>
-          <scope>import</scope>
-      </dependency>
-  </dependencies>
-</dependencyManagement>
-  
-  
- <build>
-   <plugins>
-	<plugin>
-		<groupId>org.apache.maven.plugins</groupId>
-		<artifactId>maven-compiler-plugin</artifactId>
-		<version>${version.maven-compiler-plugin}</version>
-		<configuration>
-			<source>${version.java}</source>
-			<target>${version.java}</target>
-			<encoding>UTF-8</encoding>
-		</configuration>
-	</plugin>
-     <plugin>
-       <groupId>net.unto.maven.plugins</groupId>
-       <artifactId>maven-junit4-plugin</artifactId>
-       <version>1.0-SNAPSHOT</version>
-       <executions>
-         <execution>
-           <phase>test</phase>
-           <goals>
-             <goal>test</goal>
-           </goals>
-         </execution>
-       </executions>
-     </plugin>
-   </plugins>
- </build>
- 
- <pluginRepositories>
-   <pluginRepository>
-     <id>unto.net</id>
-     <url>http://repository.unto.net/maven/</url>
-     <releases>
-       <updatePolicy>daily</updatePolicy>
-       <checksumPolicy>warn</checksumPolicy>
-     </releases>
-     <snapshots>
-       <updatePolicy>daily</updatePolicy>
-       <checksumPolicy>warn</checksumPolicy>
-     </snapshots>
-   </pluginRepository>
- </pluginRepositories>
- 
+            <!-- Wicket -->
+            <dependency>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-core</artifactId>
+                <version>${version.org.apache.wicket}</version>
+            </dependency>
+
+            <!-- Wicket Java EE integration. -->
+            <dependency>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-cdi</artifactId>
+                <version>${version.org.apache.wicket}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>1.1.3.Final</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${version.junit}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcpkix-jdk15on</artifactId>
+			<version>${version.bouncycastle}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk15on</artifactId>
+			<version>${version.bouncycastle}</version>
+		</dependency>
+
+				
+	</dependencies>
+    
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- Compiler plugin enforces Java 1.6 compatibility and 
+                    activates annotation processors -->
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${version.compiler.plugin}</version>
+                    <configuration>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
+                    </configuration>
+                </plugin>
+                <!-- The WildFly plugin deploys your ear to a local JBoss
+                    AS container -->
+                <!-- Due to Maven's lack of intelligence with EARs we need 
+                    to configure the wildfly maven plugin to skip deployment for all modules.
+                    We then enable it specifically in the ear module. -->
+                <plugin>
+                    <groupId>org.wildfly.plugins</groupId>
+                    <artifactId>wildfly-maven-plugin</artifactId>
+                    <version>${version.wildfly.maven.plugin}</version>
+                    <inherited>true</inherited>
+                    <configuration>
+                        <skip>true</skip>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
  
 </project>
