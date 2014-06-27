@@ -13,17 +13,16 @@ package org.jnotary.service.data;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 
 import org.jnotary.service.model.Configuration;
 
-@Stateless
-@LocalBean
+@Transactional
+@ApplicationScoped
 public class DvcsConfigurationManager implements IDvcsConfigurationManager {
 	
 	@Inject

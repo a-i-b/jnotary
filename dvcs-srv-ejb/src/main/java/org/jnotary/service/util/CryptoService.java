@@ -15,7 +15,7 @@ import java.security.cert.X509Certificate;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import org.bouncycastle.asn1.cmp.PKIFailureInfo;
@@ -28,7 +28,7 @@ import org.jnotary.crypto.TrustedStore;
 import org.jnotary.crypto.Verifier;
 import org.jnotary.crypto.Verifier.VerifyResult;
 
-@Stateless
+@ApplicationScoped
 public class CryptoService {
 
 	@Inject

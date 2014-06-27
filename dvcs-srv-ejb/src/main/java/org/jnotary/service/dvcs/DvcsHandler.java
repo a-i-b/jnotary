@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 import javax.ejb.LocalBean;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import org.bouncycastle.asn1.cmp.PKIFailureInfo;
@@ -39,9 +40,7 @@ import org.jnotary.dvcs.util.StatusInfoFactory;
 import org.jnotary.service.util.CryptoService;
 import org.jnotary.service.util.IGlobalResources;
 
-@Stateless
-@LocalBean
-@Remote(IDvcsHandler.class)
+@ApplicationScoped
 public class DvcsHandler implements IDvcsHandler {
 	@Inject
 	private Logger log;	

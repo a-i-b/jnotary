@@ -19,8 +19,8 @@ import javax.persistence.PersistenceContext;
 
 public class Producer {
 	
-    @Produces
-    @PersistenceContext(unitName="dvcs-srv-ejb")
+	@Produces
+    @PersistenceContext
     private EntityManager em;
 
 	@Produces

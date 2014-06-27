@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployment>
+    <dependencies>
+        <module name="org.bouncycastle" slot="main" export="true"/>
+    </dependencies>
+</deployment> 

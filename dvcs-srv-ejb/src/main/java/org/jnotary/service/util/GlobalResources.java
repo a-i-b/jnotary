@@ -105,7 +105,7 @@ public class GlobalResources implements IGlobalResources {
 		List<CrlDistributionPoint> list = crlManager.read();
 		for(CrlDistributionPoint crl: list) {
 			crlStorage.addCRLSource(crl.getIssuerHash(), crl.getCrlUrl());
-		}
+		}	
 	}
 
 	@Override
